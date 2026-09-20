@@ -1,0 +1,103 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ziyingqiao-ship-it.github.io/Pet-Care-Calendar/schemas/pet-care-state.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "const": "0.1"
+    },
+    "state_id": {
+      "type": "string",
+      "pattern": "^[a-z0-9][a-z0-9_-]*$"
+    },
+    "revision": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "pets": {
+      "type": "array",
+      "items": {
+        "$ref": "pet.schema.json"
+      }
+    },
+    "schedules": {
+      "type": "array",
+      "items": {
+        "$ref": "schedule.schema.json"
+      }
+    },
+    "calendar_bindings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "occurrence_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "schedule_id": {
+            "type": "string",
+            "pattern": "^[a-z0-9][a-z0-9_-]*$"
+          },
+          "provider": {
+            "type": "string",
+            "minLength": 1
+          },
+          "calendar_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "event_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uid": {
+            "type": "string",
+            "minLength": 1
+          },
+          "sequence": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "sync_status": {
+            "enum": [
+              "pending",
+              "synced",
+              "failed",
+              "exported",
+              "removed"
+            ]
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "required": [
+          "occurrence_id",
+          "schedule_id",
+          "provider",
+          "uid",
+          "sequence",
+          "sync_status",
+          "updated_at"
+        ]
+      }
+    }
+  },
+  "required": [
+    "schema_version",
+    "state_id",
+    "revision",
+    "updated_at",
+    "pets",
+    "schedules",
+    "calendar_bindings"
+  ]
+}
